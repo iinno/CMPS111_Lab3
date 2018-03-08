@@ -66,7 +66,7 @@ static bool load(const char *cmdline, void (**eip) (void), void **esp);
  * format binary has been loaded into the heap by load();
  */
 static void
-push_command(const char *cmdline UNUSED, void **esp)
+push_command(const char *cmdline, void **esp)
 {
     printf("Base Address: 0x%08x\n", (unsigned int) *esp);
 
@@ -83,6 +83,19 @@ push_command(const char *cmdline UNUSED, void **esp)
     // describes what you're doing, and why.
     //
     // If nothing else, it'll remind you what you did when it doesn't work :)
+
+    int argc = 0;
+    int len = 0;
+    char *token;
+    char *rest = cmdline;
+
+    while((token = strtok_r(rest, " ", &rest))){
+    		len = strlen(token)+1;
+    		*esp -= len;
+    		memcpy(*esp, token, len);
+    }
+
+    *esp = (void*) ((unsigned int) (*esp) & 0xfffffffc);
 }
 
 /* 
@@ -107,6 +120,8 @@ process_execute(const char *cmdline)
     // CMPS111 Lab 3 : The "parent" thread immediately returns after creating 
     // the child. To get ANY of the tests passing, you need to synchronise the 
     // activity of the parent and child threads.
+
+
 
     return tid;
 }

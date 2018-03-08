@@ -1,6 +1,6 @@
 Copying tests/userprog/read-normal to scratch partition...
 Copying ../../tests/userprog/sample.txt to scratch partition...
-qemu-system-i386 -device isa-debug-exit -hda /tmp/5q7_aZKjaU.dsk -m 4 -net none -nographic -monitor null
+qemu-system-i386 -device isa-debug-exit -hda /tmp/UEC3VZ3OEo.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading............
 Kernel command line: -q -f extract run read-normal
@@ -22,8 +22,8 @@ Putting 'sample.txt' into the file system...
 Erasing ustar archive...
 Executing 'read-normal':
 Execution of 'read-normal' complete.
-Timer: 84 ticks
-Thread: 38 idle ticks, 46 kernel ticks, 0 user ticks
+Timer: 79 ticks
+Thread: 31 idle ticks, 48 kernel ticks, 0 user ticks
 hda2 (filesys): 195 reads, 193 writes
 hda3 (scratch): 96 reads, 2 writes
 Console: 885 characters output
