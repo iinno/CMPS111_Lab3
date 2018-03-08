@@ -1,5 +1,5 @@
 Copying tests/userprog/create-empty to scratch partition...
-qemu-system-i386 -device isa-debug-exit -hda /tmp/PGrTwBV8ZL.dsk -m 4 -net none -nographic -monitor null
+qemu-system-i386 -device isa-debug-exit -hda /tmp/SzgcrwxMoK.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading............
 Kernel command line: -q -f extract run create-empty
@@ -19,12 +19,20 @@ Extracting ustar archive from scratch device into file system...
 Putting 'create-empty' into the file system...
 Erasing ustar archive...
 Executing 'create-empty':
+Page fault at 0x6d652d65: not present error reading page in user context.
+create-empty: dying due to interrupt 0x0e (#PF Page-Fault Exception).
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x80480cc
+ cr2=6d652d65 error=00000004
+ eax=6d652d65 ebx=00000000 ecx=bfffffd4 edx=00000000
+ esi=00000000 edi=00000000 esp=bfffffb4 ebp=bfffffc8
+ cs=001b ds=0023 es=0023 ss=0023
+create-empty: exit(-1)
 Execution of 'create-empty' complete.
-Timer: 85 ticks
-Thread: 37 idle ticks, 48 kernel ticks, 0 user ticks
-hda2 (filesys): 190 reads, 189 writes
+Timer: 90 ticks
+Thread: 44 idle ticks, 45 kernel ticks, 1 user ticks
+hda2 (filesys): 216 reads, 189 writes
 hda3 (scratch): 94 reads, 2 writes
-Console: 844 characters output
+Console: 1238 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 1 page faults
 Powering off...

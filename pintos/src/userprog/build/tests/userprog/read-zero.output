@@ -1,6 +1,6 @@
 Copying tests/userprog/read-zero to scratch partition...
 Copying ../../tests/userprog/sample.txt to scratch partition...
-qemu-system-i386 -device isa-debug-exit -hda /tmp/ElEek7snqg.dsk -m 4 -net none -nographic -monitor null
+qemu-system-i386 -device isa-debug-exit -hda /tmp/Ai8Z8UUEre.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading............
 Kernel command line: -q -f extract run read-zero
@@ -21,12 +21,20 @@ Putting 'read-zero' into the file system...
 Putting 'sample.txt' into the file system...
 Erasing ustar archive...
 Executing 'read-zero':
+Page fault at 0x6f7265: not present error reading page in user context.
+read-zero: dying due to interrupt 0x0e (#PF Page-Fault Exception).
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x8048118
+ cr2=006f7265 error=00000004
+ eax=006f7265 ebx=00000000 ecx=bfffffd8 edx=00000000
+ esi=00000000 edi=00000000 esp=bfffffb4 ebp=bfffffc8
+ cs=001b ds=0023 es=0023 ss=0023
+read-zero: exit(-1)
 Execution of 'read-zero' complete.
-Timer: 80 ticks
-Thread: 35 idle ticks, 45 kernel ticks, 0 user ticks
-hda2 (filesys): 195 reads, 193 writes
+Timer: 88 ticks
+Thread: 43 idle ticks, 44 kernel ticks, 1 user ticks
+hda2 (filesys): 220 reads, 193 writes
 hda3 (scratch): 96 reads, 2 writes
-Console: 877 characters output
+Console: 1263 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 1 page faults
 Powering off...

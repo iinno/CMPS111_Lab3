@@ -56,6 +56,7 @@
 #include "userprog/syscall.h"
 #include "userprog/process.h"
 #include "devices/timer.h"
+#include "threads/lock.h"
 
 static thread_func start_process NO_RETURN;
 static bool load(const char *cmdline, void (**eip) (void), void **esp);
@@ -68,7 +69,7 @@ static bool load(const char *cmdline, void (**eip) (void), void **esp);
 static void
 push_command(const char *cmdline, void **esp)
 {
-    printf("Base Address: 0x%08x\n", (unsigned int) *esp);
+    //printf("Base Address: 0x%08x\n", (unsigned int) *esp);
 
     // Word align with the stack pointer. 
     *esp = (void*) ((unsigned int) (*esp) & 0xfffffffc);
@@ -84,18 +85,59 @@ push_command(const char *cmdline, void **esp)
     //
     // If nothing else, it'll remind you what you did when it doesn't work :)
 
-    int argc = 0;
-    int len = 0;
-    char *token;
-    char *rest = cmdline;
+    const char *buffer = (char *) palloc_get_page(0);
+    strlcpy(buffer, cmdline, PGSIZE);
 
-    while((token = strtok_r(rest, " ", &rest))){
-    		len = strlen(token)+1;
-    		*esp -= len;
-    		memcpy(*esp, token, len);
-    }
+    int argc = 1, len = 0;
+    char *token;
+    //char *rest = cmdline;
+    void *buff[3];
+    //int j = 0;
+
+//    while((token = strtok_r(rest, " ", &rest))){
+//    		len = strlen(token)+1;
+//    		*esp -= len;
+//    		//strlcat(buff[j]), esp, 4);
+//    		memcpy(*esp, token, len);
+//    		argc++;
+//    		//j++;
+//    }
+    *esp -= 10;
+    memcpy(*esp, cmdline, strlen(cmdline)+1);
+    buff[0] = (void *)*esp;
+    //printf("Base Address: 0x%08x\n", (unsigned int) *esp);
+    //printf("Buff Address: 0x%08x\n", (unsigned int) buff[0]);
 
     *esp = (void*) ((unsigned int) (*esp) & 0xfffffffc);
+    //printf("Base Address: 0x%08x\n", (unsigned int) *esp);
+
+    *esp -= 4;
+    *((int*) *esp) = 0;
+    //printf("Base Address: 0x%08x\n", (unsigned int) *esp);
+
+
+    *esp -= 4;
+    *((unsigned int*) *esp) = (unsigned int *)(buff[0]);
+    buff[1] = (void *)*esp;
+    //printf("Base Address: 0x%08x\n", (unsigned int) *esp);
+    printf("0x%08x\n", *((unsigned int *)*esp));
+
+    *esp -= 4;
+    *((unsigned int*) *esp) = (unsigned int *)(buff[1]);
+
+    *esp -= 4;
+    *((int*) *esp) = argc;
+
+    *esp -= 4;
+    *((int*) *esp) = 0;
+
+
+
+//    for(int i = 0; i < argc; i++){
+//    		*esp -= 4;
+//    }
+
+
 }
 
 /* 
@@ -121,6 +163,7 @@ process_execute(const char *cmdline)
     // the child. To get ANY of the tests passing, you need to synchronise the 
     // activity of the parent and child threads.
 
+    timer_sleep(20);
 
 
     return tid;
@@ -173,7 +216,9 @@ start_process(void *cmdline)
 int
 process_wait(tid_t child_tid UNUSED)
 {
-    return -1;
+
+	return -1;
+
 }
 
 /* Free the current process's resources. */

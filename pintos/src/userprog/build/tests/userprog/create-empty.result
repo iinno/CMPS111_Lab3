@@ -1,2 +1,34 @@
 FAIL
-Run didn't produce any output
+Test output failed to match any acceptable form.
+
+Acceptable output:
+  (create-empty) begin
+  (create-empty) create(""): 0
+  (create-empty) end
+  create-empty: exit(0)
+Differences in `diff -u' format:
+- (create-empty) begin
+- (create-empty) create(""): 0
+- (create-empty) end
+- create-empty: exit(0)
++ Page fault at 0x6d652d65: not present error reading page in user context.
++ create-empty: dying due to interrupt 0x0e (#PF Page-Fault Exception).
++ Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x80480cc
++  cr2=6d652d65 error=00000004
++  eax=6d652d65 ebx=00000000 ecx=bfffffd4 edx=00000000
++  esi=00000000 edi=00000000 esp=bfffffb4 ebp=bfffffc8
++  cs=001b ds=0023 es=0023 ss=0023
++ create-empty: exit(-1)
+Acceptable output:
+  (create-empty) begin
+  create-empty: exit(-1)
+Differences in `diff -u' format:
+- (create-empty) begin
++ Page fault at 0x6d652d65: not present error reading page in user context.
++ create-empty: dying due to interrupt 0x0e (#PF Page-Fault Exception).
++ Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x80480cc
++  cr2=6d652d65 error=00000004
++  eax=6d652d65 ebx=00000000 ecx=bfffffd4 edx=00000000
++  esi=00000000 edi=00000000 esp=bfffffb4 ebp=bfffffc8
++  cs=001b ds=0023 es=0023 ss=0023
+  create-empty: exit(-1)

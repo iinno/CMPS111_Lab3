@@ -1,6 +1,6 @@
 Copying tests/userprog/wait-simple to scratch partition...
 Copying tests/userprog/child-simple to scratch partition...
-qemu-system-i386 -device isa-debug-exit -hda /tmp/6NvhTAgXok.dsk -m 4 -net none -nographic -monitor null
+qemu-system-i386 -device isa-debug-exit -hda /tmp/1GUEeSsxZk.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading............
 Kernel command line: -q -f extract run wait-simple
@@ -21,12 +21,20 @@ Putting 'wait-simple' into the file system...
 Putting 'child-simple' into the file system...
 Erasing ustar archive...
 Executing 'wait-simple':
+Page fault at 0x656c70: not present error reading page in user context.
+wait-simple: dying due to interrupt 0x0e (#PF Page-Fault Exception).
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x80480cf
+ cr2=00656c70 error=00000004
+ eax=00656c70 ebx=00000000 ecx=bfffffd8 edx=00000000
+ esi=00000000 edi=00000000 esp=bfffffb4 ebp=bfffffc8
+ cs=001b ds=0023 es=0023 ss=0023
+wait-simple: exit(-1)
 Execution of 'wait-simple' complete.
-Timer: 98 ticks
-Thread: 45 idle ticks, 53 kernel ticks, 0 user ticks
-hda2 (filesys): 375 reads, 372 writes
+Timer: 95 ticks
+Thread: 47 idle ticks, 47 kernel ticks, 1 user ticks
+hda2 (filesys): 401 reads, 372 writes
 hda3 (scratch): 185 reads, 2 writes
-Console: 889 characters output
+Console: 1279 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 1 page faults
 Powering off...

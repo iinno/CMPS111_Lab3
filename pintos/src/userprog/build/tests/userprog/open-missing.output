@@ -1,5 +1,5 @@
 Copying tests/userprog/open-missing to scratch partition...
-qemu-system-i386 -device isa-debug-exit -hda /tmp/0zCvP77Yk1.dsk -m 4 -net none -nographic -monitor null
+qemu-system-i386 -device isa-debug-exit -hda /tmp/JrL3NB0V19.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading............
 Kernel command line: -q -f extract run open-missing
@@ -19,12 +19,20 @@ Extracting ustar archive from scratch device into file system...
 Putting 'open-missing' into the file system...
 Erasing ustar archive...
 Executing 'open-missing':
+Page fault at 0x7373696d: not present error reading page in user context.
+open-missing: dying due to interrupt 0x0e (#PF Page-Fault Exception).
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x80480cf
+ cr2=7373696d error=00000004
+ eax=7373696d ebx=00000000 ecx=bfffffd4 edx=00000000
+ esi=00000000 edi=00000000 esp=bfffffb4 ebp=bfffffc8
+ cs=001b ds=0023 es=0023 ss=0023
+open-missing: exit(-1)
 Execution of 'open-missing' complete.
-Timer: 80 ticks
-Thread: 36 idle ticks, 44 kernel ticks, 0 user ticks
-hda2 (filesys): 190 reads, 189 writes
+Timer: 93 ticks
+Thread: 47 idle ticks, 44 kernel ticks, 2 user ticks
+hda2 (filesys): 216 reads, 189 writes
 hda3 (scratch): 94 reads, 2 writes
-Console: 844 characters output
+Console: 1238 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 1 page faults
 Powering off...

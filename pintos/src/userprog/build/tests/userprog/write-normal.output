@@ -1,6 +1,6 @@
 Copying tests/userprog/write-normal to scratch partition...
 Copying ../../tests/userprog/sample.txt to scratch partition...
-qemu-system-i386 -device isa-debug-exit -hda /tmp/tA7sfdAmVZ.dsk -m 4 -net none -nographic -monitor null
+qemu-system-i386 -device isa-debug-exit -hda /tmp/gzYhXNao6Q.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading............
 Kernel command line: -q -f extract run write-normal
@@ -21,12 +21,20 @@ Putting 'write-normal' into the file system...
 Putting 'sample.txt' into the file system...
 Erasing ustar archive...
 Executing 'write-normal':
+Page fault at 0x726f6e2d: not present error reading page in user context.
+write-normal: dying due to interrupt 0x0e (#PF Page-Fault Exception).
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x804813d
+ cr2=726f6e2d error=00000004
+ eax=726f6e2d ebx=00000000 ecx=bfffffd4 edx=00000000
+ esi=00000000 edi=00000000 esp=bfffffb4 ebp=bfffffc8
+ cs=001b ds=0023 es=0023 ss=0023
+write-normal: exit(-1)
 Execution of 'write-normal' complete.
-Timer: 87 ticks
-Thread: 41 idle ticks, 46 kernel ticks, 0 user ticks
-hda2 (filesys): 197 reads, 195 writes
+Timer: 88 ticks
+Thread: 40 idle ticks, 46 kernel ticks, 2 user ticks
+hda2 (filesys): 222 reads, 195 writes
 hda3 (scratch): 97 reads, 2 writes
-Console: 889 characters output
+Console: 1283 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 1 page faults
 Powering off...
