@@ -1,6 +1,6 @@
 Copying tests/userprog/write-zero to scratch partition...
 Copying ../../tests/userprog/sample.txt to scratch partition...
-qemu-system-i386 -device isa-debug-exit -hda /tmp/Tqfl3dw5Tk.dsk -m 4 -net none -nographic -monitor null
+qemu-system-i386 -device isa-debug-exit -hda /tmp/A9oC56NswZ.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading............
 Kernel command line: -q -f extract run write-zero
@@ -21,20 +21,20 @@ Putting 'write-zero' into the file system...
 Putting 'sample.txt' into the file system...
 Erasing ustar archive...
 Executing 'write-zero':
-Page fault at 0x6f7265: not present error reading page in user context.
+Page fault at 0xc0000000: rights violation error reading page in user context.
 write-zero: dying due to interrupt 0x0e (#PF Page-Fault Exception).
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x8048104
- cr2=006f7265 error=00000004
- eax=006f7265 ebx=00000000 ecx=bfffffd8 edx=00000000
- esi=00000000 edi=00000000 esp=bfffffb4 ebp=bfffffc8
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x8049bea
+ cr2=c0000000 error=00000005
+ eax=0000000a ebx=bffffff6 ecx=ffffffff edx=bffffff6
+ esi=0804ab12 edi=bfffff60 esp=bffffe8c ebp=bfffff5c
  cs=001b ds=0023 es=0023 ss=0023
 write-zero: exit(-1)
 Execution of 'write-zero' complete.
-Timer: 95 ticks
-Thread: 48 idle ticks, 46 kernel ticks, 1 user ticks
+Timer: 99 ticks
+Thread: 53 idle ticks, 44 kernel ticks, 2 user ticks
 hda2 (filesys): 219 reads, 193 writes
 hda3 (scratch): 96 reads, 2 writes
-Console: 1269 characters output
+Console: 1276 characters output
 Keyboard: 0 keys pressed
 Exception: 1 page faults
 Powering off...

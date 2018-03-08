@@ -11,11 +11,11 @@ Differences in `diff -u' format:
 - (create-normal) create quux.dat
 - (create-normal) end
 - create-normal: exit(0)
-+ Page fault at 0x726f6e2d: not present error reading page in user context.
++ Page fault at 0xc0000000: rights violation error reading page in user context.
 + create-normal: dying due to interrupt 0x0e (#PF Page-Fault Exception).
-+ Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x80480dc
-+  cr2=726f6e2d error=00000004
-+  eax=726f6e2d ebx=00000000 ecx=bfffffd4 edx=00000000
-+  esi=00000000 edi=00000000 esp=bfffffb4 ebp=bfffffc8
++ Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x8049bc2
++  cr2=c0000000 error=00000005
++  eax=0000000a ebx=bffffff6 ecx=ffffffff edx=bffffff6
++  esi=0804aadd edi=bfffff60 esp=bffffe8c ebp=bfffff5c
 +  cs=001b ds=0023 es=0023 ss=0023
 + create-normal: exit(-1)

@@ -120,7 +120,7 @@ push_command(const char *cmdline, void **esp)
     *((unsigned int*) *esp) = (unsigned int *)(buff[0]);
     buff[1] = (void *)*esp;
     //printf("Base Address: 0x%08x\n", (unsigned int) *esp);
-    printf("0x%08x\n", *((unsigned int *)*esp));
+    //printf("0x%08x\n", *((unsigned int *)*esp));
 
     *esp -= 4;
     *((unsigned int*) *esp) = (unsigned int *)(buff[1]);

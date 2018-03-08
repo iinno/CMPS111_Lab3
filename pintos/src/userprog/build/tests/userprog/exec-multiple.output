@@ -1,6 +1,6 @@
 Copying tests/userprog/exec-multiple to scratch partition...
 Copying tests/userprog/child-simple to scratch partition...
-qemu-system-i386 -device isa-debug-exit -hda /tmp/SyWUO1NasZ.dsk -m 4 -net none -nographic -monitor null
+qemu-system-i386 -device isa-debug-exit -hda /tmp/P7bnz0Zvht.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading............
 Kernel command line: -q -f extract run exec-multiple
@@ -21,20 +21,20 @@ Putting 'exec-multiple' into the file system...
 Putting 'child-simple' into the file system...
 Erasing ustar archive...
 Executing 'exec-multiple':
-Page fault at 0x69746c75: not present error reading page in user context.
+Page fault at 0xc0000000: rights violation error reading page in user context.
 exec-multiple: dying due to interrupt 0x0e (#PF Page-Fault Exception).
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x80480fd
- cr2=69746c75 error=00000004
- eax=69746c75 ebx=00000000 ecx=bfffffd4 edx=00000000
- esi=00000000 edi=00000000 esp=bfffffb4 ebp=bfffffc8
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x8049be3
+ cr2=c0000000 error=00000005
+ eax=0000000a ebx=bffffff6 ecx=ffffffff edx=bffffff6
+ esi=0804aafa edi=bfffff60 esp=bffffe8c ebp=bfffff5c
  cs=001b ds=0023 es=0023 ss=0023
 exec-multiple: exit(-1)
 Execution of 'exec-multiple' complete.
 Timer: 103 ticks
-Thread: 54 idle ticks, 48 kernel ticks, 1 user ticks
+Thread: 56 idle ticks, 46 kernel ticks, 1 user ticks
 hda2 (filesys): 401 reads, 372 writes
 hda3 (scratch): 185 reads, 2 writes
-Console: 1294 characters output
+Console: 1299 characters output
 Keyboard: 0 keys pressed
 Exception: 1 page faults
 Powering off...

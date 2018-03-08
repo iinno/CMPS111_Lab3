@@ -1,13 +1,13 @@
 Copying tests/userprog/wait-simple to scratch partition...
 Copying tests/userprog/child-simple to scratch partition...
-qemu-system-i386 -device isa-debug-exit -hda /tmp/1GUEeSsxZk.dsk -m 4 -net none -nographic -monitor null
+qemu-system-i386 -device isa-debug-exit -hda /tmp/wDZg13GdWQ.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading............
 Kernel command line: -q -f extract run wait-simple
 Pintos booting with 3,968 kB RAM...
 367 pages available in kernel pool.
 367 pages available in user pool.
-Calibrating timer...  419,020,800 loops/s.
+Calibrating timer...  419,430,400 loops/s.
 hda: 5,040 sectors (2 MB), model "QM00001", serial "QEMU HARDDISK"
 hda1: 194 sectors (97 kB), Pintos OS kernel (20)
 hda2: 4,096 sectors (2 MB), Pintos file system (21)
@@ -21,20 +21,20 @@ Putting 'wait-simple' into the file system...
 Putting 'child-simple' into the file system...
 Erasing ustar archive...
 Executing 'wait-simple':
-Page fault at 0x656c70: not present error reading page in user context.
+Page fault at 0xc0000000: rights violation error reading page in user context.
 wait-simple: dying due to interrupt 0x0e (#PF Page-Fault Exception).
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x80480cf
- cr2=00656c70 error=00000004
- eax=00656c70 ebx=00000000 ecx=bfffffd8 edx=00000000
- esi=00000000 edi=00000000 esp=bfffffb4 ebp=bfffffc8
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x8049bb5
+ cr2=c0000000 error=00000005
+ eax=0000000a ebx=bffffff6 ecx=ffffffff edx=bffffff6
+ esi=0804aae0 edi=bfffff60 esp=bffffe8c ebp=bfffff5c
  cs=001b ds=0023 es=0023 ss=0023
 wait-simple: exit(-1)
 Execution of 'wait-simple' complete.
-Timer: 95 ticks
-Thread: 47 idle ticks, 47 kernel ticks, 1 user ticks
+Timer: 116 ticks
+Thread: 57 idle ticks, 58 kernel ticks, 1 user ticks
 hda2 (filesys): 401 reads, 372 writes
 hda3 (scratch): 185 reads, 2 writes
-Console: 1279 characters output
+Console: 1287 characters output
 Keyboard: 0 keys pressed
 Exception: 1 page faults
 Powering off...

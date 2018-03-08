@@ -1,8 +1,8 @@
-Copying tests/userprog/args-dbl-space to scratch partition...
-qemu-system-i386 -device isa-debug-exit -hda /tmp/hXpjy_FyLR.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/args-many to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/hYhJmHaRMt.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading............
-Kernel command line: -q -f extract run 'args-dbl-space two  spaces!'
+Kernel command line: -q -f extract run 'args-many a b c d e f g h i j k l m n o p q r s t u v'
 Pintos booting with 3,968 kB RAM...
 367 pages available in kernel pool.
 367 pages available in user pool.
@@ -16,16 +16,16 @@ scratch: using hda3
 Formatting file system...done.
 Boot complete.
 Extracting ustar archive from scratch device into file system...
-Putting 'args-dbl-space' into the file system...
+Putting 'args-many' into the file system...
 Erasing ustar archive...
-Executing 'args-dbl-space two  spaces!':
-load: 'args-dbl-space two  spaces!': open failed, no such file
-Execution of 'args-dbl-space two  spaces!' complete.
-Timer: 97 ticks
-Thread: 53 idle ticks, 44 kernel ticks, 0 user ticks
+Executing 'args-many a b c d e f g h i j k l m n o p q r s t u v':
+load: 'args-many a b c d e f g h i j k l m n o p q r s t u v': open failed, no such file
+Execution of 'args-many a b c d e f g h i j k l m n o p q r s t u v' complete.
+Timer: 99 ticks
+Thread: 56 idle ticks, 43 kernel ticks, 0 user ticks
 hda2 (filesys): 190 reads, 187 writes
 hda3 (scratch): 93 reads, 2 writes
-Console: 956 characters output
+Console: 1055 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...
