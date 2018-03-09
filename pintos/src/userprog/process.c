@@ -91,13 +91,18 @@ push_command(const char *cmdline, void **esp)
     strlcpy(buffer, cmdline, PGSIZE);
     int argc = 0, len = 0, j = 0;
     char *token;
+
     while((token = strtok_r(buffer, " ", &buffer))){
         		argc++;
-        		printf("%d\n", argc);
+//        		memcpy(args, token, strlen(token));
+//        		args += strlen(token);
+        		//printf("%d\n", argc);
         }
     palloc_free_page(bufferLoc);
 
     void *buff[argc + 1];
+
+
 
     while((token = strtok_r(cmdline, " ", &cmdline))){
     		len = strlen(token)+1;
@@ -111,15 +116,15 @@ push_command(const char *cmdline, void **esp)
 
     *esp = (void*) ((unsigned int) (*esp) & 0xfffffffc);
 
-    for(int i = 0; i <= argc; i++){
+    for(int i = argc; i >= 0; i--){
     		*esp -= 4;
-    		if(i == 0){
+    		if(i == argc){
     			*((int*) *esp) = 0;
-    		} else if(i == argc) {
-    			*((unsigned int*) *esp) = (unsigned int *)(buff[i-1]);
+    		} else if(i == 0) {
+    			*((unsigned int*) *esp) = (unsigned int *)(buff[i]);
     			buff[j] = *esp;
     		} else {
-    			*((unsigned int*) *esp) = (unsigned int *)(buff[i-1]);
+    			*((unsigned int*) *esp) = (unsigned int *)(buff[i]);
     		}
     }
 
@@ -179,10 +184,20 @@ process_execute(const char *cmdline)
     if (cmdline_copy == NULL) 
         return TID_ERROR;
     
+
+
     strlcpy(cmdline_copy, cmdline, PGSIZE);
 
+    const char *buffer = (const char *) palloc_get_page(0);
+    char *bufferLoc = buffer;
+    strlcpy(buffer, cmdline, PGSIZE);
+    char *token;
+    token = strtok_r(buffer, " ", &buffer);
+
     // Create a Kernel Thread for the new process
-    tid_t tid = thread_create(cmdline, PRI_DEFAULT, start_process, cmdline_copy);
+    tid_t tid = thread_create(token, PRI_DEFAULT, start_process, cmdline_copy);
+
+    palloc_free_page(bufferLoc);
 
     // CMPS111 Lab 3 : The "parent" thread immediately returns after creating 
     // the child. To get ANY of the tests passing, you need to synchronise the 

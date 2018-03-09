@@ -1,6 +1,6 @@
 Copying tests/userprog/wait-twice to scratch partition...
 Copying tests/userprog/child-simple to scratch partition...
-qemu-system-i386 -device isa-debug-exit -hda /tmp/vaUXL0HT2H.dsk -m 4 -net none -nographic -monitor null
+qemu-system-i386 -device isa-debug-exit -hda /tmp/WPHaLNeY1h.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading............
 Kernel command line: -q -f extract run wait-twice
@@ -9,7 +9,7 @@ Pintos booting with 3,968 kB RAM...
 367 pages available in user pool.
 Calibrating timer...  419,020,800 loops/s.
 hda: 5,040 sectors (2 MB), model "QM00001", serial "QEMU HARDDISK"
-hda1: 194 sectors (97 kB), Pintos OS kernel (20)
+hda1: 193 sectors (96 kB), Pintos OS kernel (20)
 hda2: 4,096 sectors (2 MB), Pintos file system (21)
 hda3: 186 sectors (93 kB), Pintos scratch (22)
 filesys: using hda2
@@ -21,20 +21,14 @@ Putting 'wait-twice' into the file system...
 Putting 'child-simple' into the file system...
 Erasing ustar archive...
 Executing 'wait-twice':
-Page fault at 0xc0000000: rights violation error reading page in user context.
-wait-twice: dying due to interrupt 0x0e (#PF Page-Fault Exception).
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x8049bcf
- cr2=c0000000 error=00000005
- eax=0000000a ebx=bffffff6 ecx=ffffffff edx=bffffff6
- esi=0804aaf8 edi=bfffff60 esp=bffffe8c ebp=bfffff5c
- cs=001b ds=0023 es=0023 ss=0023
-wait-twice: exit(-1)
+(wait-twice) begin
+[ERROR] system call 2 is unimplemented!
 Execution of 'wait-twice' complete.
-Timer: 101 ticks
-Thread: 52 idle ticks, 47 kernel ticks, 2 user ticks
+Timer: 112 ticks
+Thread: 59 idle ticks, 52 kernel ticks, 1 user ticks
 hda2 (filesys): 401 reads, 372 writes
 hda3 (scratch): 185 reads, 2 writes
-Console: 1281 characters output
+Console: 945 characters output
 Keyboard: 0 keys pressed
-Exception: 1 page faults
+Exception: 0 page faults
 Powering off...
