@@ -1,6 +1,6 @@
 Copying tests/userprog/exec-once to scratch partition...
 Copying tests/userprog/child-simple to scratch partition...
-qemu-system-i386 -device isa-debug-exit -hda /tmp/EhGrIQgkQf.dsk -m 4 -net none -nographic -monitor null
+qemu-system-i386 -device isa-debug-exit -hda /tmp/E1pWUVR2kg.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading............
 Kernel command line: -q -f extract run exec-once
@@ -9,7 +9,7 @@ Pintos booting with 3,968 kB RAM...
 367 pages available in user pool.
 Calibrating timer...  419,020,800 loops/s.
 hda: 5,040 sectors (2 MB), model "QM00001", serial "QEMU HARDDISK"
-hda1: 194 sectors (97 kB), Pintos OS kernel (20)
+hda1: 193 sectors (96 kB), Pintos OS kernel (20)
 hda2: 4,096 sectors (2 MB), Pintos file system (21)
 hda3: 185 sectors (92 kB), Pintos scratch (22)
 filesys: using hda2
@@ -21,14 +21,12 @@ Putting 'exec-once' into the file system...
 Putting 'child-simple' into the file system...
 Erasing ustar archive...
 Executing 'exec-once':
-(exec-once) begin
-[ERROR] system call 2 is unimplemented!
 Execution of 'exec-once' complete.
-Timer: 103 ticks
-Thread: 58 idle ticks, 44 kernel ticks, 1 user ticks
+Timer: 263 ticks
+Thread: 42 idle ticks, 49 kernel ticks, 172 user ticks
 hda2 (filesys): 399 reads, 370 writes
 hda3 (scratch): 184 reads, 2 writes
-Console: 940 characters output
+Console: 884 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 2073162 page faults
 Powering off...

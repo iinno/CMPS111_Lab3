@@ -1,22 +1,5 @@
 FAIL
-Test output failed to match any acceptable form.
-
-Acceptable output:
-  (args) begin
-  (args) argc = 3
-  (args) argv[0] = 'args-dbl-space'
-  (args) argv[1] = 'two'
-  (args) argv[2] = 'spaces!'
-  (args) argv[3] = null
-  (args) end
-  args-dbl-space: exit(0)
-Differences in `diff -u' format:
-- (args) begin
-- (args) argc = 3
-- (args) argv[0] = 'args-dbl-space'
-- (args) argv[1] = 'two'
-- (args) argv[2] = 'spaces!'
-- (args) argv[3] = null
-- (args) end
-- args-dbl-space: exit(0)
-+ load: 'args-dbl-space two  spaces!': open failed, no such file
+Kernel panic in run: PANIC at ../../threads/palloc.c:123 in palloc_free_multiple(): assertion `pg_ofs (pages) == 0' failed.
+Call stack: 0xc00277f6
+Translation of call stack:
+0xc00277f6: debug_panic (.../../lib/kernel/debug.c:38)

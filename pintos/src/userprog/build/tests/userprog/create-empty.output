@@ -1,5 +1,5 @@
 Copying tests/userprog/create-empty to scratch partition...
-qemu-system-i386 -device isa-debug-exit -hda /tmp/3rgfkGbBsh.dsk -m 4 -net none -nographic -monitor null
+qemu-system-i386 -device isa-debug-exit -hda /tmp/NWJxBsPYGI.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading............
 Kernel command line: -q -f extract run create-empty
@@ -8,7 +8,7 @@ Pintos booting with 3,968 kB RAM...
 367 pages available in user pool.
 Calibrating timer...  419,020,800 loops/s.
 hda: 5,040 sectors (2 MB), model "QM00001", serial "QEMU HARDDISK"
-hda1: 194 sectors (97 kB), Pintos OS kernel (20)
+hda1: 193 sectors (96 kB), Pintos OS kernel (20)
 hda2: 4,096 sectors (2 MB), Pintos file system (21)
 hda3: 95 sectors (47 kB), Pintos scratch (22)
 filesys: using hda2
@@ -19,20 +19,78 @@ Extracting ustar archive from scratch device into file system...
 Putting 'create-empty' into the file system...
 Erasing ustar archive...
 Executing 'create-empty':
-Page fault at 0xc0000000: rights violation error reading page in user context.
-create-empty: dying due to interrupt 0x0e (#PF Page-Fault Exception).
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x8049bb2
- cr2=c0000000 error=00000005
- eax=0000000a ebx=bffffff6 ecx=ffffffff edx=bffffff6
- esi=0804aacc edi=bfffff60 esp=bffffe8c ebp=bfffff5c
- cs=001b ds=0023 es=0023 ss=0023
-create-empty: exit(-1)
+1
+Kernel PANIC at ../../threads/palloc.c:123 in palloc_free_multiple(): assertion `pg_ofs (pages) == 0' failed.
+Call stack: 0xc00277f6.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:227 in real_time_sleep().
+Interrupt 0x03 (#BP Breakpoint Exception) at eip=0xc010704d
+ cr2=ccccccd0 error=00000000
+ eax=ffffffff ebx=c010704c ecx=cccccccc edx=c010704c
+ esi=c0039620 edi=c0107000 esp=c0039638 ebp=c0039638
+ cs=0008 ds=0010 es=0010 ss=9620
+Interrupt 0x03 (#BP Breakpoint Exception) at eip=0xc010704d
+ cr2=cccccce0 error=00000000
+ eax=ffffffff ebx=c010704c ecx=00000780 edx=cccccccc
+ esi=0000006d edi=c002e0fc esp=00000000 ebp=c010aaf8
+ cs=0008 ds=0010 es=0010 ss=0000
+Interrupt 0x03 (#BP Breakpoint Exception) at eip=0xc010704d
+ cr2=ccccccd8 error=00000000
+ eax=ffffffff ebx=c010704c ecx=00000780 edx=000003f8
+ esi=cccccccc edi=c002e0fc esp=00000092 ebp=c010a99c
+ cs=0008 ds=0010 es=0010 ss=0096
+Interrupt 0x03 (#BP Breakpoint Exception) at eip=0xc010704d
+ cr2=ccccccd8 error=00000000
+ eax=ffffffff ebx=c010704c ecx=00000780 edx=000003f8
+ esi=cccccccc edi=c002e0fc esp=00000097 ebp=c010a850
+ cs=0008 ds=0010 es=0010 ss=13eb
+Interrupt 0x03 (#BP Breakpoint Exception) at eip=0xc010704d
+ cr2=ccccccd8 error=00000000
+ eax=ffffffff ebx=c010704c ecx=00000780 edx=000003f8
+ esi=cccccccc edi=c002e0fc esp=00000097 ebp=c010a704
+ cs=0008 ds=0010 es=0010 ss=13eb
+Interrupt 0x03 (#BP Breakpoint Exception) at eip=0xc010704d
+ cr2=ccccccd8 error=00000000
+ eax=ffffffff ebx=c010704c ecx=00000780 edx=000003f8
+ esi=cccccccc edi=c002e0fc esp=00000097 ebp=c010a5b8
+ cs=0008 ds=0010 es=0010 ss=13eb
+Interrupt 0x03 (#BP Breakpoint Exception) at eip=0xc010704d
+ cr2=ccccccd8 error=00000000
+ eax=ffffffff ebx=c010704c ecx=00000780 edx=000003f8
+ esi=cccccccc edi=c002e0fc esp=00000097 ebp=c010a46c
+ cs=0008 ds=0010 es=0010 ss=13eb
+Interrupt 0x03 (#BP Breakpoint Exception) at eip=0xc010704d
+ cr2=ccccccd8 error=00000000
+ eax=ffffffff ebx=c010704c ecx=00000780 edx=000003f8
+ esi=cccccccc edi=c002e0fc esp=00000097 ebp=c010a320
+ cs=0008 ds=0010 es=0010 ss=13eb
+PiLo hda1
+Loading............
+Kernel command line: -q -f extract run create-empty
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  419,020,800 loops/s.
+hda: 5,040 sectors (2 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 193 sectors (96 kB), Pintos OS kernel (20)
+hda2: 4,096 sectors (2 MB), Pintos file system (21)
+hda3: 95 sectors (47 kB), Pintos scratch (22)
+filesys: using hda2
+scratch: using hda3
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Erasing ustar archive...
+Executing 'create-empty':
+load: 'create-empty': open failed, no such file
 Execution of 'create-empty' complete.
-Timer: 97 ticks
-Thread: 52 idle ticks, 44 kernel ticks, 1 user ticks
-hda2 (filesys): 216 reads, 189 writes
-hda3 (scratch): 94 reads, 2 writes
-Console: 1243 characters output
+Timer: 92 ticks
+Thread: 50 idle ticks, 42 kernel ticks, 0 user ticks
+hda2 (filesys): 4 reads, 4 writes
+hda3 (scratch): 1 reads, 2 writes
+Console: 840 characters output
 Keyboard: 0 keys pressed
-Exception: 1 page faults
+Exception: 0 page faults
 Powering off...

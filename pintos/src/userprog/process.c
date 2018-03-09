@@ -85,57 +85,82 @@ push_command(const char *cmdline, void **esp)
     //
     // If nothing else, it'll remind you what you did when it doesn't work :)
 
-    const char *buffer = (char *) palloc_get_page(0);
+    //const char *buffer = (const char *) palloc_get_page(0);
+    const char *buffer = (const char *) palloc_get_page(0);
+    char *bufferLoc = buffer;
     strlcpy(buffer, cmdline, PGSIZE);
-
-    int argc = 1, len = 0;
+    int argc = 0, len = 0, j = 0;
     char *token;
-    //char *rest = cmdline;
-    void *buff[3];
-    //int j = 0;
+    while((token = strtok_r(buffer, " ", &buffer))){
+        		argc++;
+        		printf("%d\n", argc);
+        }
+    palloc_free_page(bufferLoc);
 
-//    while((token = strtok_r(rest, " ", &rest))){
-//    		len = strlen(token)+1;
-//    		*esp -= len;
-//    		//strlcat(buff[j]), esp, 4);
-//    		memcpy(*esp, token, len);
-//    		argc++;
-//    		//j++;
-//    }
-    *esp -= 10;
-    memcpy(*esp, cmdline, strlen(cmdline)+1);
-    buff[0] = (void *)*esp;
-    //printf("Base Address: 0x%08x\n", (unsigned int) *esp);
-    //printf("Buff Address: 0x%08x\n", (unsigned int) buff[0]);
+    void *buff[argc + 1];
+
+    while((token = strtok_r(cmdline, " ", &cmdline))){
+    		len = strlen(token)+1;
+    		//printf("%s", token);
+    		*esp -= len;
+    		//printf("Base Address: 0x%08x\n", (unsigned int) *esp);
+    		buff[j] = *esp;
+    		memcpy(*esp, token, len);
+    		j++;
+    }
 
     *esp = (void*) ((unsigned int) (*esp) & 0xfffffffc);
-    //printf("Base Address: 0x%08x\n", (unsigned int) *esp);
 
-    *esp -= 4;
-    *((int*) *esp) = 0;
-    //printf("Base Address: 0x%08x\n", (unsigned int) *esp);
+    for(int i = 0; i <= argc; i++){
+    		*esp -= 4;
+    		if(i == 0){
+    			*((int*) *esp) = 0;
+    		} else if(i == argc) {
+    			*((unsigned int*) *esp) = (unsigned int *)(buff[i-1]);
+    			buff[j] = *esp;
+    		} else {
+    			*((unsigned int*) *esp) = (unsigned int *)(buff[i-1]);
+    		}
+    }
 
-
-    *esp -= 4;
-    *((unsigned int*) *esp) = (unsigned int *)(buff[0]);
-    buff[1] = (void *)*esp;
-    //printf("Base Address: 0x%08x\n", (unsigned int) *esp);
-    //printf("0x%08x\n", *((unsigned int *)*esp));
-
-    *esp -= 4;
-    *((unsigned int*) *esp) = (unsigned int *)(buff[1]);
-
-    *esp -= 4;
-    *((int*) *esp) = argc;
-
-    *esp -= 4;
-    *((int*) *esp) = 0;
+   *esp -= 4;
+   *((unsigned int*) *esp) = (unsigned int *)(buff[j]);
+   *esp -= 4;
+   *((int*) *esp) = argc;
+   *esp -= 4;
+   *((int*) *esp) = 0;
 
 
+//    *esp -= 10;
+//    memcpy(*esp, cmdline, strlen(cmdline)+1);
+//    buff[0] = (void *)*esp;
+//    //printf("Base Address: 0x%08x\n", (unsigned int) *esp);
+//    //printf("Buff Address: 0x%08x\n", (unsigned int) buff[0]);
+//
+//    *esp = (void*) ((unsigned int) (*esp) & 0xfffffffc);
+//    //printf("Base Address: 0x%08x\n", (unsigned int) *esp);
+//
+//    *esp -= 4;
+//    *((int*) *esp) = 0;
+//    //printf("Base Address: 0x%08x\n", (unsigned int) *esp);
+//
+//
+//    *esp -= 4;
+//    *((unsigned int*) *esp) = (unsigned int *)(buff[0]);
+//    buff[1] = (void *)*esp;
+//    //printf("Base Address: 0x%08x\n", (unsigned int) *esp);
+//    //printf("0x%08x\n", *((unsigned int *)*esp));
+//
+//    *esp -= 4;
+//    *((unsigned int*) *esp) = (unsigned int *)(buff[1]);
+//
+//    *esp -= 4;
+//    *((int*) *esp) = argc;
+//
+//    *esp -= 4;
+//    *((int*) *esp) = 0;
 
-//    for(int i = 0; i < argc; i++){
-//    		*esp -= 4;
-//    }
+
 
 
 }
@@ -185,11 +210,18 @@ start_process(void *cmdline)
     pif.cs = SEL_UCSEG;
     pif.eflags = FLAG_IF | FLAG_MBS;
 
-    bool success = load(cmdline, &pif.eip, &pif.esp);
+    const char *buffer = (const char *) palloc_get_page(0);
+    char *bufferLoc = buffer;
+    strlcpy(buffer, cmdline, PGSIZE);
+    char *token;
+    token = strtok_r(buffer, " ", &buffer);
+
+    bool success = load(token, &pif.eip, &pif.esp);
     if (success) {
         push_command(cmdline, &pif.esp);
     }
     palloc_free_page(cmdline);
+    palloc_free_page(bufferLoc);
 
     if (!success) {
         thread_exit();
