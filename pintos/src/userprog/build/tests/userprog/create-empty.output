@@ -1,5 +1,5 @@
 Copying tests/userprog/create-empty to scratch partition...
-qemu-system-i386 -device isa-debug-exit -hda /tmp/YwmyZ6B8Gv.dsk -m 4 -net none -nographic -monitor null
+qemu-system-i386 -device isa-debug-exit -hda /tmp/mzfntkwF1z.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading............
 Kernel command line: -q -f extract run create-empty
@@ -20,13 +20,15 @@ Putting 'create-empty' into the file system...
 Erasing ustar archive...
 Executing 'create-empty':
 (create-empty) begin
-[ERROR] system call 4 is unimplemented!
+(create-empty) create(""): 0
+(create-empty) end
+create-empty: exit(0)
 Execution of 'create-empty' complete.
-Timer: 103 ticks
-Thread: 57 idle ticks, 45 kernel ticks, 1 user ticks
-hda2 (filesys): 216 reads, 189 writes
+Timer: 105 ticks
+Thread: 59 idle ticks, 46 kernel ticks, 0 user ticks
+hda2 (filesys): 218 reads, 191 writes
 hda3 (scratch): 94 reads, 2 writes
-Console: 906 characters output
+Console: 936 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...

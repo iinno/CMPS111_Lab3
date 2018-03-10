@@ -1,6 +1,6 @@
 Copying tests/userprog/open-normal to scratch partition...
 Copying ../../tests/userprog/sample.txt to scratch partition...
-qemu-system-i386 -device isa-debug-exit -hda /tmp/pE1HVp1H4a.dsk -m 4 -net none -nographic -monitor null
+qemu-system-i386 -device isa-debug-exit -hda /tmp/UJssdvYyfD.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading............
 Kernel command line: -q -f extract run open-normal
@@ -22,13 +22,14 @@ Putting 'sample.txt' into the file system...
 Erasing ustar archive...
 Executing 'open-normal':
 (open-normal) begin
-[ERROR] system call 6 is unimplemented!
+OPEN(open-normal) end
+open-normal: exit(0)
 Execution of 'open-normal' complete.
-Timer: 104 ticks
-Thread: 56 idle ticks, 47 kernel ticks, 1 user ticks
+Timer: 103 ticks
+Thread: 57 idle ticks, 45 kernel ticks, 1 user ticks
 hda2 (filesys): 219 reads, 193 writes
 hda3 (scratch): 96 reads, 2 writes
-Console: 946 characters output
+Console: 949 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...

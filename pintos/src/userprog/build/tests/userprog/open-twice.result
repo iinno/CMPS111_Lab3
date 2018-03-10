@@ -12,5 +12,7 @@ Differences in `diff -u' format:
 - (open-twice) open "sample.txt" once
 - (open-twice) open "sample.txt" again
 - (open-twice) end
-- open-twice: exit(0)
-+ [ERROR] system call 6 is unimplemented!
++ OPENOPEN(open-twice) open "sample.txt" once
++ OPEN(open-twice) open "sample.txt" again
++ OPEN(open-twice) end
+  open-twice: exit(0)
