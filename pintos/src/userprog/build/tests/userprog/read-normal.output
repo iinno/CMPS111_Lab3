@@ -1,6 +1,6 @@
 Copying tests/userprog/read-normal to scratch partition...
 Copying ../../tests/userprog/sample.txt to scratch partition...
-qemu-system-i386 -device isa-debug-exit -hda /tmp/d2oZUhT4u7.dsk -m 4 -net none -nographic -monitor null
+qemu-system-i386 -device isa-debug-exit -hda /tmp/4wzloqrPfp.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading............
 Kernel command line: -q -f extract run read-normal
@@ -9,7 +9,7 @@ Pintos booting with 3,968 kB RAM...
 367 pages available in user pool.
 Calibrating timer...  419,020,800 loops/s.
 hda: 5,040 sectors (2 MB), model "QM00001", serial "QEMU HARDDISK"
-hda1: 193 sectors (96 kB), Pintos OS kernel (20)
+hda1: 202 sectors (101 kB), Pintos OS kernel (20)
 hda2: 4,096 sectors (2 MB), Pintos file system (21)
 hda3: 97 sectors (48 kB), Pintos scratch (22)
 filesys: using hda2
@@ -23,13 +23,26 @@ Erasing ustar archive...
 Executing 'read-normal':
 (read-normal) begin
 (read-normal) open "sample.txt" for verification
-OPEN[ERROR] system call 7 is unimplemented!
+(read-normal) 239 bytes read starting at offset 0 in "sample.txt" differ from expected.
+(read-normal) Showing first differing 64 bytes.
+(read-normal) Data actually read:
+00000000  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 |................|
+00000010  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 |................|
+00000020  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 |................|
+00000030  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 |................|
+(read-normal) Expected data:
+00000000  22 41 6d 61 7a 69 6e 67-20 45 6c 65 63 74 72 6f |"Amazing Electro|
+00000010  6e 69 63 20 46 61 63 74-3a 20 49 66 20 79 6f 75 |nic Fact: If you|
+00000020  20 73 63 75 66 66 65 64-20 79 6f 75 72 20 66 65 | scuffed your fe|
+00000030  65 74 20 6c 6f 6e 67 20-65 6e 6f 75 67 68 20 77 |et long enough w|
+(read-normal) 239 bytes read starting at offset 0 in "sample.txt" differ from expected: FAILED
+read-normal: exit(1)
 Execution of 'read-normal' complete.
-Timer: 103 ticks
-Thread: 58 idle ticks, 45 kernel ticks, 0 user ticks
+Timer: 84 ticks
+Thread: 38 idle ticks, 44 kernel ticks, 3 user ticks
 hda2 (filesys): 220 reads, 193 writes
 hda3 (scratch): 96 reads, 2 writes
-Console: 999 characters output
+Console: 1886 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...

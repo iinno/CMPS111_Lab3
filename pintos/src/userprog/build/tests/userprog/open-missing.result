@@ -1,2 +1,1 @@
-FAIL
-run: OPEN(open-missing) open() returned 256: FAILED
+PASS

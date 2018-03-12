@@ -1,6 +1,6 @@
 Copying tests/userprog/wait-twice to scratch partition...
 Copying tests/userprog/child-simple to scratch partition...
-qemu-system-i386 -device isa-debug-exit -hda /tmp/9CtYl_BS5h.dsk -m 4 -net none -nographic -monitor null
+qemu-system-i386 -device isa-debug-exit -hda /tmp/H0nc75wHLA.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading............
 Kernel command line: -q -f extract run wait-twice
@@ -9,7 +9,7 @@ Pintos booting with 3,968 kB RAM...
 367 pages available in user pool.
 Calibrating timer...  419,020,800 loops/s.
 hda: 5,040 sectors (2 MB), model "QM00001", serial "QEMU HARDDISK"
-hda1: 193 sectors (96 kB), Pintos OS kernel (20)
+hda1: 202 sectors (101 kB), Pintos OS kernel (20)
 hda2: 4,096 sectors (2 MB), Pintos file system (21)
 hda3: 186 sectors (93 kB), Pintos scratch (22)
 filesys: using hda2
@@ -22,13 +22,18 @@ Putting 'child-simple' into the file system...
 Erasing ustar archive...
 Executing 'wait-twice':
 (wait-twice) begin
-[ERROR] system call 2 is unimplemented!
+(child-simple) run
+child-simple: exit(81)
+(wait-twice) wait(exec()) = -1
+(wait-twice) wait(exec()) = -1
+(wait-twice) end
+wait-twice: exit(0)
 Execution of 'wait-twice' complete.
-Timer: 104 ticks
-Thread: 54 idle ticks, 49 kernel ticks, 1 user ticks
-hda2 (filesys): 401 reads, 372 writes
+Timer: 96 ticks
+Thread: 46 idle ticks, 49 kernel ticks, 1 user ticks
+hda2 (filesys): 425 reads, 372 writes
 hda3 (scratch): 185 reads, 2 writes
-Console: 945 characters output
+Console: 1046 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...

@@ -60,6 +60,8 @@
 
 static thread_func start_process NO_RETURN;
 static bool load(const char *cmdline, void (**eip) (void), void **esp);
+static struct semaphore locking;
+
 
 /*
  * Push the command and arguments found in CMDLINE onto the stack, world 
@@ -194,8 +196,12 @@ process_execute(const char *cmdline)
     char *token;
     token = strtok_r(buffer, " ", &buffer);
 
+
+    struct sync *sync = sync_init(cmdline_copy, thread_current());
+    //palloc_free_page(cmdline_copy);
+
     // Create a Kernel Thread for the new process
-    tid_t tid = thread_create(token, PRI_DEFAULT, start_process, cmdline_copy);
+    tid_t tid = thread_create(token, PRI_DEFAULT, start_process, sync);
 
     palloc_free_page(bufferLoc);
 
@@ -203,7 +209,11 @@ process_execute(const char *cmdline)
     // the child. To get ANY of the tests passing, you need to synchronise the 
     // activity of the parent and child threads.
 
-    timer_sleep(20);
+
+    semaphore_down(&sync->sema);
+    //semaphore_down(&locking);
+    //lock_release(lock);
+    //timer_sleep(20);
 
 
     return tid;
@@ -215,8 +225,16 @@ process_execute(const char *cmdline)
  * If arguments are passed in CMDLINE, the thread will exit imediately.
  */
 static void
-start_process(void *cmdline)
+start_process(void *_sync)
 {
+	struct thread *cur = thread_current();
+	struct sync* sync = _sync;
+
+	struct child* child = child_init(cur->tid, cur);
+	list_push_back(&(sync->parent->children), &(child->syncelem));
+
+	cur->parent = sync->parent;
+
     // Initialize interrupt frame and load executable. 
     struct intr_frame pif;
     memset(&pif, 0, sizeof pif);
@@ -227,20 +245,29 @@ start_process(void *cmdline)
 
     const char *buffer = (const char *) palloc_get_page(0);
     char *bufferLoc = buffer;
-    strlcpy(buffer, cmdline, PGSIZE);
+    strlcpy(buffer, sync->cmdline, PGSIZE);
     char *token;
     token = strtok_r(buffer, " ", &buffer);
 
     bool success = load(token, &pif.eip, &pif.esp);
     if (success) {
-        push_command(cmdline, &pif.esp);
+        push_command(sync->cmdline, &pif.esp);
+        //lock_release(&locking);
+        //semaphore_up(&locking);
     }
-    palloc_free_page(cmdline);
+    //palloc_free_page(syncro->cmdline);
     palloc_free_page(bufferLoc);
+    //semaphore_up(&locking);
+    //semaphore_up(&(sync->sema));
 
     if (!success) {
         thread_exit();
+        //lock_release(&locking);
+        //semaphore_up(&locking);
     }
+
+    semaphore_up(&(sync->sema));
+
 
     // Start the user process by simulating a return from an
     // interrupt, implemented by intr_exit (in threads/intr-stubs.S).  
@@ -261,10 +288,33 @@ start_process(void *cmdline)
    This function will be implemented in Lab 3.  
    For now, it does nothing. */
 int
-process_wait(tid_t child_tid UNUSED)
+process_wait(tid_t child_tid)
 {
+	struct child* child;
+	struct thread *t = thread_current();
+	struct list_elem *e;
+	for (e = list_begin (&(t->children)); e != list_end (&(t->children)); e = list_next (e)) {
+		child = list_entry (e, struct child, syncelem);
+		if(child->tid == child_tid){
+			break;
+		}
+	}
 
-	return -1;
+	if(child == NULL){
+		return -1;
+	}
+
+	struct thread* child_thread = child->child;
+
+	if(child_thread->wait){
+		return -1;
+	}
+
+	child_thread->wait = true;
+
+	semaphore_down(&child_thread->syncsema);
+
+	return child_thread->exitcode;
 
 }
 
@@ -274,6 +324,9 @@ process_exit(void)
 {
     struct thread *cur = thread_current();
     uint32_t *pd;
+
+    cur->wait = false;
+    semaphore_up(&cur->syncsema);
 
     /* Destroy the current process's page directory and switch back
        to the kernel-only page directory. */
@@ -290,6 +343,9 @@ process_exit(void)
         pagedir_activate(NULL);
         pagedir_destroy(pd);
     }
+
+    //lock_release(&locking);
+    //semaphore_up(&locking);
 }
 
 /* Sets up the CPU for running user code in the current
