@@ -300,21 +300,24 @@ process_wait(tid_t child_tid)
 		}
 	}
 
+
 	if(child == NULL){
 		return -1;
 	}
 
 	struct thread* child_thread = child->child;
 
-	if(child_thread->wait){
+	if(child->wait){
 		return -1;
+	} else {
+		child->wait = true;
 	}
-
-	child_thread->wait = true;
 
 	semaphore_down(&child_thread->syncsema);
 
-	return child_thread->exitcode;
+	//list_remove(e); ????????????? Why is this true where else should I remove the file? If the child has been terminated isnt it normal that I remove the child?
+
+	return child->exitcode;
 
 }
 
@@ -325,8 +328,10 @@ process_exit(void)
     struct thread *cur = thread_current();
     uint32_t *pd;
 
-    cur->wait = false;
+
+    //cur->exit = true;
     semaphore_up(&cur->syncsema);
+
 
     /* Destroy the current process's page directory and switch back
        to the kernel-only page directory. */
