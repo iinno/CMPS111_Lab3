@@ -142,7 +142,36 @@ struct thread
 
     // Owned by thread.c. 
     unsigned magic;        // Detects stack overflow. 
+
+    struct thread* parent;
+    struct list children;
+
+    struct list file_list;
+    int opFiles;
+
+    struct semaphore* syncsema;
   };
+
+struct fd_handler{
+	int fd;
+	struct file* f;
+	struct list_elem elem;
+};
+
+struct sync{
+	const char* cmdline;
+	struct semaphore* sema;
+	struct thread* parent;
+};
+
+struct child{
+	tid_t tid;
+	struct thread* child;
+	struct list_elem syncelem;
+	bool wait;
+	int exitcode;
+};
+
 
 // If false(default), use round-robin scheduler.
 // If true, use multi-level feedback queue scheduler.
