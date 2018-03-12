@@ -146,7 +146,7 @@ void sys_exit(int status)
   		 break;
   	  	}
   	  }
-  child->exit = true;
+  //child->exit = true;
   thread_exit();
 }
 
