@@ -149,7 +149,7 @@ struct thread
     struct list file_list;
     int opFiles;
 
-    struct semaphore* syncsema;
+    struct semaphore *syncsema;
   };
 
 struct fd_handler{
@@ -158,11 +158,6 @@ struct fd_handler{
 	struct list_elem elem;
 };
 
-struct sync{
-	const char* cmdline;
-	struct semaphore* sema;
-	struct thread* parent;
-};
 
 struct child{
 	tid_t tid;

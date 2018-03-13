@@ -569,6 +569,8 @@ init_thread (struct thread *t, const char *name, int priority)
   t->parent = NULL;
   list_init(&(t->children));
   list_init(&(t->file_list));
+  struct semaphore sema;
+  t->syncsema = &sema;
 
   old_level = intr_disable ();
   list_push_back (&all_list, &t->allelem);
@@ -585,14 +587,6 @@ struct fd_handler* fd_init(struct file* file){
 	return file_descriptor;
 }
 
-struct sync* sync_init(const char* cmdline, struct thread* parent){
-	struct sync* sync = palloc_get_page(0);
-	sync->cmdline = cmdline;
-	sync->parent = parent;
-	semaphore_init(&(sync->sema), 0);
-
-	return sync;
-}
 
 struct child* child_init(tid_t tid, struct thread* child){
 	struct child* child_ = palloc_get_page(0);
