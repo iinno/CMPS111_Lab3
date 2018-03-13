@@ -1,6 +1,6 @@
 Copying tests/userprog/exec-once to scratch partition...
 Copying tests/userprog/child-simple to scratch partition...
-qemu-system-i386 -device isa-debug-exit -hda /tmp/L9lfhyql87.dsk -m 4 -net none -nographic -monitor null
+qemu-system-i386 -device isa-debug-exit -hda /tmp/X52p5K4r9e.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading............
 Kernel command line: -q -f extract run exec-once
@@ -22,16 +22,12 @@ Putting 'child-simple' into the file system...
 Erasing ustar archive...
 Executing 'exec-once':
 (exec-once) begin
-(child-simple) run
-child-simple: exit(81)
-(exec-once) end
-exec-once: exit(0)
 Execution of 'exec-once' complete.
-Timer: 93 ticks
-Thread: 40 idle ticks, 51 kernel ticks, 2 user ticks
-hda2 (filesys): 423 reads, 370 writes
+Timer: 85 ticks
+Thread: 37 idle ticks, 47 kernel ticks, 1 user ticks
+hda2 (filesys): 399 reads, 370 writes
 hda3 (scratch): 184 reads, 2 writes
-Console: 977 characters output
+Console: 900 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...

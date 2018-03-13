@@ -1,5 +1,5 @@
 Copying tests/userprog/create-normal to scratch partition...
-qemu-system-i386 -device isa-debug-exit -hda /tmp/jyPQJZftTY.dsk -m 4 -net none -nographic -monitor null
+qemu-system-i386 -device isa-debug-exit -hda /tmp/2KnNnD5Svu.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading............
 Kernel command line: -q -f extract run create-normal
@@ -21,14 +21,14 @@ Erasing ustar archive...
 Executing 'create-normal':
 (create-normal) begin
 (create-normal) create quux.dat
-(create-normal) end
-create-normal: exit(0)
 Execution of 'create-normal' complete.
-Timer: 79 ticks
-Thread: 33 idle ticks, 45 kernel ticks, 1 user ticks
+(create-normal) end
+Tà: exit(0)
+Timer: 80 ticks
+Thread: 35 idle ticks, 44 kernel ticks, 1 user ticks
 hda2 (filesys): 218 reads, 192 writes
 hda3 (scratch): 94 reads, 2 writes
-Console: 946 characters output
+Console: 935 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...

@@ -1,6 +1,6 @@
 Copying tests/userprog/read-zero to scratch partition...
 Copying ../../tests/userprog/sample.txt to scratch partition...
-qemu-system-i386 -device isa-debug-exit -hda /tmp/cKGvSzqs3z.dsk -m 4 -net none -nographic -monitor null
+qemu-system-i386 -device isa-debug-exit -hda /tmp/0Sg2cHiIuZ.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading............
 Kernel command line: -q -f extract run read-zero
@@ -24,13 +24,13 @@ Executing 'read-zero':
 (read-zero) begin
 (read-zero) open "sample.txt"
 (read-zero) end
-read-zero: exit(0)
+Tà: exit(0)
 Execution of 'read-zero' complete.
-Timer: 82 ticks
-Thread: 36 idle ticks, 45 kernel ticks, 1 user ticks
+Timer: 79 ticks
+Thread: 31 idle ticks, 47 kernel ticks, 1 user ticks
 hda2 (filesys): 220 reads, 193 writes
 hda3 (scratch): 96 reads, 2 writes
-Console: 961 characters output
+Console: 954 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...

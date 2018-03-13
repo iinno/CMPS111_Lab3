@@ -1,6 +1,6 @@
 Copying tests/userprog/read-normal to scratch partition...
 Copying ../../tests/userprog/sample.txt to scratch partition...
-qemu-system-i386 -device isa-debug-exit -hda /tmp/AG99Nhu0Cf.dsk -m 4 -net none -nographic -monitor null
+qemu-system-i386 -device isa-debug-exit -hda /tmp/MtWmR3FgD7.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading............
 Kernel command line: -q -f extract run read-normal
@@ -36,13 +36,13 @@ Executing 'read-normal':
 00000020  20 73 63 75 66 66 65 64-20 79 6f 75 72 20 66 65 | scuffed your fe|
 00000030  65 74 20 6c 6f 6e 67 20-65 6e 6f 75 67 68 20 77 |et long enough w|
 (read-normal) 239 bytes read starting at offset 0 in "sample.txt" differ from expected: FAILED
-read-normal: exit(1)
+Tà: exit(1)
 Execution of 'read-normal' complete.
-Timer: 81 ticks
-Thread: 33 idle ticks, 46 kernel ticks, 2 user ticks
+Timer: 82 ticks
+Thread: 33 idle ticks, 46 kernel ticks, 3 user ticks
 hda2 (filesys): 220 reads, 193 writes
 hda3 (scratch): 96 reads, 2 writes
-Console: 1886 characters output
+Console: 1877 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...

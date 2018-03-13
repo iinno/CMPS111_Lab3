@@ -172,6 +172,13 @@ push_command(const char *cmdline, void **esp)
 
 }
 
+struct sync{
+	const char* cmdline;
+	struct semaphore* sema;
+	struct thread* parent;
+};
+
+
 /* 
  * Starts a new kernel thread running a user program loaded from CMDLINE. 
  * The new thread may be scheduled (and may even exit) before process_execute() 
@@ -186,9 +193,14 @@ process_execute(const char *cmdline)
     if (cmdline_copy == NULL) 
         return TID_ERROR;
     
-
-
     strlcpy(cmdline_copy, cmdline, PGSIZE);
+
+    struct sync sync;
+    sync.cmdline = cmdline_copy;
+    	sync.parent = thread_current();
+    	struct semaphore sema;
+    	semaphore_init(&sema, 0);
+    	sync.sema = &sema;
 
     const char *buffer = (const char *) palloc_get_page(0);
     char *bufferLoc = buffer;
@@ -196,12 +208,12 @@ process_execute(const char *cmdline)
     char *token;
     token = strtok_r(buffer, " ", &buffer);
 
-
-    struct sync *sync = sync_init(cmdline_copy, thread_current());
     //palloc_free_page(cmdline_copy);
 
     // Create a Kernel Thread for the new process
-    tid_t tid = thread_create(token, PRI_DEFAULT, start_process, sync);
+    tid_t tid = thread_create(token, PRI_DEFAULT, start_process, &sync);
+
+    semaphore_down(&sema);
 
     palloc_free_page(bufferLoc);
 
@@ -210,7 +222,6 @@ process_execute(const char *cmdline)
     // activity of the parent and child threads.
 
 
-    semaphore_down(&(sync->sema));
 
 
 
@@ -226,12 +237,12 @@ static void
 start_process(void *_sync)
 {
 	struct thread *cur = thread_current();
-	struct sync* sync = _sync;
+	struct sync* sync = (struct sync*) _sync;
 
-	struct child* child = child_init(cur->tid, cur);
-	list_push_back(&(sync->parent->children), &(child->syncelem));
-
-	cur->parent = sync->parent;
+//	struct child* child = child_init(cur->tid, cur);
+//	list_push_back(&(sync->parent->children), &(child->syncelem));
+//
+//	cur->parent = sync->parent;
 
     // Initialize interrupt frame and load executable. 
     struct intr_frame pif;
@@ -254,12 +265,13 @@ start_process(void *_sync)
     }
 
     palloc_free_page(bufferLoc);
+    semaphore_up(sync->sema);
 
     if (!success) {
         thread_exit();
     }
 
-    semaphore_up(&(sync->sema));
+
 
 
     // Start the user process by simulating a return from an
@@ -283,31 +295,33 @@ start_process(void *_sync)
 int
 process_wait(tid_t child_tid)
 {
-	struct child* child;
-	struct thread *t = thread_current();
-	struct list_elem *e;
-	for (e = list_begin (&(t->children)); e != list_end (&(t->children)); e = list_next (e)) {
-		child = list_entry (e, struct child, syncelem);
-		if(child->tid == child_tid){
-			break;
-		}
-	}
+//	struct child* child;
+//	struct thread *t = thread_current();
+//	struct list_elem *e;
+//	for (e = list_begin (&(t->children)); e != list_end (&(t->children)); e = list_next (e)) {
+//		child = list_entry (e, struct child, syncelem);
+//		if(child->tid == child_tid){
+//			break;
+//		}
+//	}
+//
+//	if(child == NULL){
+//		return -1;
+//	}
+//
+//	struct thread* child_thread = child->child;
+//
+//	if(child->wait){
+//		return -1;
+//	} else {
+//		child->wait = true;
+//	}
+//
+//	semaphore_down(&child_thread->syncsema);
+//
+//	return child->exitcode;
 
-	if(child == NULL){
-		return -1;
-	}
-
-	struct thread* child_thread = child->child;
-
-	if(child->wait){
-		return -1;
-	} else {
-		child->wait = true;
-	}
-
-	semaphore_down(&child_thread->syncsema);
-
-	return child->exitcode;
+	return -1;
 
 }
 
@@ -318,7 +332,7 @@ process_exit(void)
     struct thread *cur = thread_current();
     uint32_t *pd;
 
-    semaphore_up(&cur->syncsema);
+    //semaphore_up(&cur->syncsema);
 
     /* Destroy the current process's page directory and switch back
        to the kernel-only page directory. */

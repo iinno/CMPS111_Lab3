@@ -1,5 +1,5 @@
 Copying tests/userprog/create-exists to scratch partition...
-qemu-system-i386 -device isa-debug-exit -hda /tmp/9Lhd48aFKV.dsk -m 4 -net none -nographic -monitor null
+qemu-system-i386 -device isa-debug-exit -hda /tmp/Tl4Qmnysvg.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading............
 Kernel command line: -q -f extract run create-exists
@@ -21,18 +21,15 @@ Erasing ustar archive...
 Executing 'create-exists':
 (create-exists) begin
 (create-exists) create quux.dat
-(create-exists) create warble.dat
-(create-exists) try to re-create quux.dat
-(create-exists) create baffle.dat
-(create-exists) try to re-create quux.dat
-(create-exists) end
-create-exists: exit(0)
 Execution of 'create-exists' complete.
-Timer: 81 ticks
-Thread: 31 idle ticks, 49 kernel ticks, 1 user ticks
-hda2 (filesys): 222 reads, 195 writes
+(create-exists) create warble.dat
+(create-exists) create warble.dat: FAILED
+Tà: exit(1)
+Timer: 80 ticks
+Thread: 35 idle ticks, 45 kernel ticks, 0 user ticks
+hda2 (filesys): 219 reads, 192 writes
 hda3 (scratch): 94 reads, 2 writes
-Console: 1098 characters output
+Console: 991 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...

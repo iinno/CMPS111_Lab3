@@ -1,6 +1,6 @@
 Copying tests/userprog/write-zero to scratch partition...
 Copying ../../tests/userprog/sample.txt to scratch partition...
-qemu-system-i386 -device isa-debug-exit -hda /tmp/USZu3Iu7XN.dsk -m 4 -net none -nographic -monitor null
+qemu-system-i386 -device isa-debug-exit -hda /tmp/l6cnyBexmo.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading............
 Kernel command line: -q -f extract run write-zero
@@ -24,13 +24,13 @@ Executing 'write-zero':
 (write-zero) begin
 (write-zero) open "sample.txt"
 (write-zero) end
-write-zero: exit(0)
+Tà: exit(0)
 Execution of 'write-zero' complete.
-Timer: 84 ticks
-Thread: 36 idle ticks, 47 kernel ticks, 1 user ticks
+Timer: 80 ticks
+Thread: 37 idle ticks, 43 kernel ticks, 0 user ticks
 hda2 (filesys): 219 reads, 193 writes
 hda3 (scratch): 96 reads, 2 writes
-Console: 969 characters output
+Console: 961 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...
