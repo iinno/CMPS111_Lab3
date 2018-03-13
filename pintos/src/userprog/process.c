@@ -210,10 +210,8 @@ process_execute(const char *cmdline)
     // activity of the parent and child threads.
 
 
-    semaphore_down(&sync->sema);
-    //semaphore_down(&locking);
-    //lock_release(lock);
-    //timer_sleep(20);
+    semaphore_down(&(sync->sema));
+
 
 
     return tid;
@@ -252,18 +250,13 @@ start_process(void *_sync)
     bool success = load(token, &pif.eip, &pif.esp);
     if (success) {
         push_command(sync->cmdline, &pif.esp);
-        //lock_release(&locking);
-        //semaphore_up(&locking);
+
     }
-    //palloc_free_page(syncro->cmdline);
+
     palloc_free_page(bufferLoc);
-    //semaphore_up(&locking);
-    //semaphore_up(&(sync->sema));
 
     if (!success) {
         thread_exit();
-        //lock_release(&locking);
-        //semaphore_up(&locking);
     }
 
     semaphore_up(&(sync->sema));
@@ -306,15 +299,15 @@ process_wait(tid_t child_tid)
 
 	struct thread* child_thread = child->child;
 
-	if(child_thread->wait){
+	if(child->wait){
 		return -1;
+	} else {
+		child->wait = true;
 	}
-
-	child_thread->wait = true;
 
 	semaphore_down(&child_thread->syncsema);
 
-	return child_thread->exitcode;
+	return child->exitcode;
 
 }
 
@@ -325,7 +318,6 @@ process_exit(void)
     struct thread *cur = thread_current();
     uint32_t *pd;
 
-    cur->wait = false;
     semaphore_up(&cur->syncsema);
 
     /* Destroy the current process's page directory and switch back

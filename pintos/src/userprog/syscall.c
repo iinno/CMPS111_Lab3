@@ -135,10 +135,17 @@ syscall_handler(struct intr_frame *f)
 
 void sys_exit(int status) 
 {
-  printf("%s: exit(%d)\n", thread_current()->name, status);
   struct thread* cur = thread_current();
+  printf("%s: exit(%d)\n", cur->name, status);
+//  struct list_elem *e;
+//  for (e = list_begin (&(cur->parent->children)); e != list_end (&(cur->parent->children)); e = list_next (e)) {
+//	  struct child *_child = list_entry (e, struct child, syncelem);
+//  	  if(_child->tid == cur->tid){
+//  		  _child->exitcode = status;
+//  		  break;
+//  	  	  }
+//  	  }
   thread_exit();
-  cur->exitcode = status;
 }
 
 static void exit_handler(struct intr_frame *f) 
